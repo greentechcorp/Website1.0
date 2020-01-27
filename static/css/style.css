@@ -1,0 +1,417 @@
+/*
+--CSS INDEX--
+  -NAVBAR
+  -MAIN CONTENT
+  -TEAM
+  -LOGIN
+  -BLOG
+*/
+
+body, html{
+  height:100%;
+  margin:0;
+  font-size:16px;
+  font-family: 'Roboto', sans-serif;
+  font-weight:400;
+  line-height:1.8em;
+  color:#666;
+}
+
+/* NAVBAR */
+
+li a:hover:not(.active) {
+  background-color: #111;
+}
+#nav { 
+  display: block;
+  width: 100%;
+  position: fixed; z-index: 9999;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333; 
+  transition: top 0.3s;
+}
+
+#nav li { 
+  float: left;
+}
+
+#nav li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+#nav li a:hover { 
+  text-decoration: none;
+  background: #1a1b19;
+}
+
+/* MAIN CONTENT */
+.home, .products, .section3{
+  position:relative;
+  opacity:0.70;
+  background-position:center;
+  background-size:cover;
+  background-repeat:no-repeat;
+  background-attachment:fixed;
+}
+.login{
+  position:relative;
+  background-position:center;
+  background-size:30%;
+  background-repeat:no-repeat;
+  background-attachment:fixed;
+}
+
+.home{
+  background-image:url('/static/img/image1.jpg');
+  min-height:100%;
+}
+
+.products{
+  background-image:url('/static/img/image2.jpg');
+  min-height:400px;
+}
+
+.product .member{
+  width: 30%;
+  float: left;
+  padding: 2% 10%;
+  text-align: center;
+}
+
+.product .member p{
+  font-size: 14px;
+  line-height: 1.4em;
+}
+
+
+.section3{
+  background-image:url('/static/img/image3.jpg');
+  min-height:400px;
+}
+
+.login{
+  background-image:url('/static/img/image1-070.jpg');
+  min-height:100%;
+}
+
+.section{
+  text-align:center;
+  padding:50px 80px;
+}
+
+.section-light{
+  background-color:#f4f4f4;
+  color:#666;
+}
+
+.section-dark{
+  background-color:#282e34;
+  color:#ddd;
+}
+
+.section-white{
+  background-color: white;
+  color: #333;
+}
+
+.ptext{
+  position:absolute;
+  top:50%;
+  width:100%;
+  text-align:center;
+  color:#000;
+  font-size:27px;
+  letter-spacing:8px;
+  text-transform:uppercase;
+}
+
+.ptext .border{
+  background-color:#111;
+  color:#fff;
+  padding:20px;
+}
+
+.ptext .border.trans{
+  background-color:transparent;
+}
+
+/* TEAM */
+.team{
+  padding: 20px 80px;
+}
+
+.team-img {
+  border-radius: 50%;
+  height: 150px;
+}
+.members{
+  overflow: hidden;
+  align-content: center;
+}
+
+.team .memberA{
+  width: 20%;
+  float: left;
+  padding: 2% 6.6%;
+}
+
+.team .memberB{
+  width: 20%;
+  float: left;
+  padding: 2% 2.5%;
+}
+
+.team .memberC{
+  width: 10%;
+  float: right;
+  padding: 2% 2.5%;
+}
+.team .memberA p, .team .memberB p{
+  font-size: 14px;
+  line-height: 1.4em;
+  text-align: justify;
+}
+
+
+@media(max-width:568px){
+  .section1, .section2, .section3{
+    background-attachment:scroll;
+  }
+}
+
+/* LOGIN */
+form {
+  border: 3px solid #f1f1f1;
+}
+
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+button {
+  background-color: #333;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+button:hover {
+  background-color: #1a1b19;
+}
+
+.cancelbtn {
+  width: auto;
+  padding: 10px 18px;
+  background-color: #f44336;
+}
+
+.container {
+  padding: 16px;
+}
+
+span.psw {
+  float: right;
+  padding-top: 16px;
+}
+
+.modal-content {
+  opacity: 100%;
+  position: fixed;
+  top: 25%;
+  right: 30%;
+  left: 30%;
+  background-color: #fefefe;
+  border: 1px solid #888;
+}
+
+@media screen and (max-width: 300px) {
+  span.psw {
+    display: block;
+    float: none;
+  }
+  .cancelbtn {
+    width: 100%;
+  }
+}
+
+/*BLOG*/
+
+.leftcolumn {   
+  float: left;
+  width: 65%;
+  padding:20px 30px;
+}
+
+.rightcolumn {
+  float: right;
+  width: 20%;
+  padding:20px 30px;
+}
+
+.leftcolumn .card {
+  border:2px solid;
+}
+
+.leftcolumn .cardE{
+  border:2px transparent;
+}
+
+.fakeimg {
+  background-color: #aaa;
+  width: 100%;
+  padding: 20px;
+}
+
+.card {
+   background-color: white;
+   padding: 20px;
+   margin-top: 20px;
+}
+
+.btn {
+  background-color: #333;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  outline: none;
+}
+
+.dropbtn{
+  background-image:url('../img/3dots.jpg');
+}
+.dropdown {
+  position: relative;
+  display: inline-block;
+  float: right;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #ddd;}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
+
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.footer {
+  padding: 20px;
+  text-align: center;
+  background: #ddd;
+}
+
+.fixfooter {
+  display: block;
+  width: 100%;
+  position: fixed; z-index: 9999;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #ddd; 
+  transition: bottom 0.3s;
+  text-align: center;
+}
+
+
+input[type=text], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+label {
+  padding: 12px 12px 12px 0;
+  display: inline-block;
+}
+
+input[type=submit] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+.container {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding-top: 60px;
+  padding-right: 30px;
+  padding-left: 30px;
+}
+
+.col-25 {
+  float: left;
+  width: 25%;
+  margin-top: 6px;
+}
+
+.col-75 {
+  float: left;
+  width: 75%;
+  margin-top: 6px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.section-partners {
+  text-align: center;
+  padding: 50px 0px;
+}
+
+@media screen and (max-width: 800px) {
+  .leftcolumn, .rightcolumn {   
+    width: 100%;
+    padding: 0;
+  }
+}

@@ -16,12 +16,13 @@ app.config['MYSQL_DB'] = 'blogTest'
 mysql = MySQL(app)
 
 
-@app.route('/', methods=['GET', 'POST'])
+
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     msg = ''
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
         username = request.form['username']
-        password = hashlib.md5((request.form['password']).encode()).hexdigest()
+        password = hashlib.sha256((request.form['password']).encode()).hexdigest()
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute('SELECT * FROM user_login WHERE username = %s AND psswrd = %s', (username, password))
         account = cursor.fetchone()
@@ -33,9 +34,10 @@ def login():
             session['username'] = account['username']
             session['name'] = account['name']
             msg= 'Logged in successfully!'
+            return redirect(url_for('blog', msg=msg))
         else:
             msg = 'Invalid Credentials. Please try again.'
-    return render_template('index.html', msg=msg)
+    return render_template('login.html', msg=msg)
 
 @app.route('/logout')
 def logout():
@@ -47,12 +49,32 @@ def logout():
    return redirect(url_for('login'))
 
 
+def teams():
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM team')
+    people = cursor.fetchall()
+    teams = [[people[0],people[1],people[2]],[people[3],people[4],people[5]]]
+    return teams
+   
+@app.route('/')
+def index():
+    return render_template('home.html', teams=teams())
+
 @app.route('/home')
 def home():
-    if 'loggedin' in session:
-        return render_template('home.html', name=session['name'])
-    return redirect(url_for('login'))
+    return render_template('home.html', teams=teams())
 
+@app.route('/team')
+def team():
+    return render_template('home.html', section='team', teams=teams())
+
+@app.route('/product')
+def product():
+    return render_template('home.html', section='product', teams=teams())
+
+@app.route('/contact')
+def contact():
+    return render_template('home.html', section='contact', teams=teams())
 
 @app.route('/blog',  methods=['GET', 'POST'])
 def blog():
@@ -68,6 +90,7 @@ def blog():
         content = request.form['content']
         cursor.execute('INSERT INTO blog_posts (`postOwnerID`,`postOwnerName`,`postTitle`,`postContent`) VALUES  (%s, %s, %s, %s)', (session['id'], session['name'], title, content))
         mysql.connection.commit()
+        return redirect(url_for('blog'))
     return render_template('blog.html', posts=reversed(posts))
 
 
@@ -114,6 +137,9 @@ def delete(id):
     mysql.connection.commit()
     return redirect(url_for('blog'))
 
+@app.errorhandler(404)
+def page_not_found(error):
+   return render_template('404.html', title = '404'), 404
 
 if __name__ == '__main__':
     app.run(debug=True)

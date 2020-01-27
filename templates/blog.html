@@ -1,8 +1,9 @@
 {% extends 'layout.html' %}
 
-{% block title %}Home{% endblock %}
+{% block title %}Blog{% endblock %}
 
 {% block content %}
+
 {% if (session['loggedin'])  %}
 <div class="container">
     <form method="post">
@@ -26,45 +27,60 @@
             <input type="submit" name="submit" value="Submit">
         </div>
     </form>
+    {% if msg %}
+    <p class="msg">{{ msg }}
+    {% endif %}
 </div>
 {% endif %}
-<h2>Blog</h2>
+
 {% if (not (session['hiddenPosts'])) and (session['loggedin']) %}
-<button><a href="{{ url_for('seeHidden',b = True)}}">See hidden posts</a></button>
+<button class="btn btn-default" ><a href="{{ url_for('seeHidden',b = True)}}">See hidden posts</a></button>
 {% endif %}
 {% if (session['hiddenPosts']) and (session['loggedin']) %}
-<button><a href="{{ url_for('seeHidden',b = False)}}">Show only public posts</a></button>
+<button class="btn btn-default" ><a href="{{ url_for('seeHidden',b = False)}}">Show only public posts</a></button>
 {% endif %}
-<p>This is a blog</p>
 
-{% for post in posts %}
+<div class="row">
+    <div class="leftcolumn">
+  
 
-    <h3>{{ post['postTitle'] }}</h3>
-    {% if (post['edited'])  %}
-    <p>(edited)</p>
-    {% endif %}
-    {% if not (post['public'])  %}
-    <p>(hidden)</p>
-    {% endif %}
-    <p>on {{post['postDate']}}</p>
-    <p>{{ post['postContent' ]}}</p>
-    <p>by {{ post['postOwnerName']}}</p>
-    {% if (session['loggedin'])  %}
-
-    <div class="dropdown">
-        <button class="dropbtn"></button>
-        <div id="dropdown" class="dropdown-content">
-            <a href="{{ url_for('edit', id = post['postID']) }}">Edit</a>
-            {% if (post['public'])  %}
-			<a href="{{ url_for('hide', id = post['postID']) }}">Hide</a>
+    {% for post in posts %}
+        <div class="card">
+        
+            {% if (session['loggedin'])  %}
+            <div class="dropdown">
+                <button class="dropbtn"></button>
+                <div id="dropdown" class="dropdown-content">
+                    <a href="{{ url_for('edit', id = post['postID']) }}">Edit</a>
+                    {% if (post['public'])  %}
+                    <a href="{{ url_for('hide', id = post['postID']) }}">Hide</a>
+                    {% endif %}
+                    {% if not (post['public'])  %}
+                    <a href="{{ url_for('show', id = post['postID']) }}">Show</a>
+                    {% endif %}
+                    <a href="{{ url_for('delete', id = post['postID']) }}">Delete</a>
+                </div>
+            </div>
             {% endif %}
-            {% if not (post['public'])  %}
-            <a href="{{ url_for('show', id = post['postID']) }}">Show</a>
-            {% endif %}
-            <a href="{{ url_for('delete', id = post['postID']) }}">Delete</a>
+            <h2>{{ post['postTitle'] }}</h2>
+            
+            
+            <h5>{% if (post['edited']) %} (edited) {% endif %}
+                 {% if not (post['public']) %} (hidden) {% endif %}
+                Posted on {{post['postDate']}} by {{ post['postOwnerName']}}</h5>
+            <p>{{ post['postContent' ]}}</p>
+        </div>
+        
+        
+    {% endfor %}
+    </div>
+    <div class="rightcolumn">
+        <div class="card">
+          <h3>We are social!</h3>
+          <p>Social media links</p>
         </div>
     </div>
-    {% endif %}
-{% endfor %}
+
+</div>
 
 {% endblock content %}

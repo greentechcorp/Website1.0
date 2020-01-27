@@ -3,6 +3,81 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-<h2>Home Page</h2>
-<p>Welcome back, {{ name }}!</p>
+
+<div id="cycloop" class="home">
+    <div class="ptext">
+      <span class="border">
+        CYCLOOP
+      </span>
+     </div>
+</div>
+
+<section id="product" class="product section section-light">
+  <div class="members">
+      <div class="member">
+          <h2>Current prototype</h2>
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/IhRQ3ke7PKc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+      <div class="member">
+           <h2>Next milestone</h2>
+           <iframe width="560" height="315" src="https://www.youtube.com/embed/d6jo3IRo8ls" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>      </div>
+      </div>
+  </div>
+</section>
+
+  <div class="products">
+    <div class="ptext">
+      <span class="border trans">
+      </span>
+    </div>
+  </div>
+
+<section id="team" class="section section-white team">
+  <h2>This is us!</h2>
+ 
+  {% for team in teams%}
+  <div class="members">
+
+    {% for person in team %}
+    <div class="memberA">
+      <img src= {{person['pathToPic']}} class="team-img">
+      <h3 style="font-size: 22px;">{{person['name']}}</h3>
+      <a>-{{person['position']}}-</a>
+      <p>{{person['descr']}}</p>
+    </div>
+    {% endfor %}
+    
+  </div>
+  {% endfor %}
+
+</section>
+
+<div class="products">
+    <div class="ptext">
+      <span class="border trans">
+      </span>
+    </div>
+</div>
+
+<section id="partners" class="section-partners section-white">
+  <h2>Thanks to:</h2>
+  <img src="/static/img/partners/1.png">
+  <img src="/static/img/partners/2.png">
+  <div class="members">
+  </div>
+</section>
+
+<div class="products">
+  <div class="ptext">
+    <span class="border trans">
+    </span>
+  </div>
+</div>
+
+
+
+<div id="contact" class="fixfooter">
+    <h2>CONTACT <a href="mailto:info@cycloop.co.uk">info@cycloop.co.uk</a> </h2>
+</div>
+  
 {% endblock content %}
