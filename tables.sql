@@ -49,3 +49,5 @@ INSERT INTO `team` (`pathToPic`,`name`,`position`,`descr`) VALUES ('/static/img/
 INSERT INTO `team` (`pathToPic`,`name`,`position`,`descr`) VALUES ('/static/img/team/sam.jpeg','Sam','Embedded Systems Developer','Masters student interested in the intersection of IoT technologies and artificial intelligence. Experienced in embedded development and systems programming.');  
 INSERT INTO `team` (`pathToPic`,`name`,`position`,`descr`) VALUES ('/static/img/team/david.jpg','David','Developer','Undergraduate student in Informatics at the University of Edinburgh. Interested in Cognitive Science and the evolution of language.');  
 
+UPDATE `team` SET `position` = 'Lead AI' WHERE name = 'Marcin';
+UPDATE `team` SET `position` = 'Lead Embedded Systems' WHERE name = 'Sam';

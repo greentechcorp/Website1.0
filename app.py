@@ -10,7 +10,7 @@ app.secret_key = 'your useless secret key'
 
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = ''
+app.config['MYSQL_PASSWORD'] = "Lowercase59%sorry%stop"
 app.config['MYSQL_DB'] = 'blogTest'
 
 mysql = MySQL(app)
@@ -75,6 +75,10 @@ def product():
 @app.route('/contact')
 def contact():
     return render_template('home.html', section='contact', teams=teams())
+
+@app.route('/map')
+def map():
+    return render_template('map.html')
 
 @app.route('/blog',  methods=['GET', 'POST'])
 def blog():

@@ -84,6 +84,7 @@ li a:hover:not(.active) {
   padding: 2% 10%;
   text-align: center;
 }
+}
 
 .product .member p{
   font-size: 14px;
@@ -415,3 +416,4 @@ input[type=submit]:hover {
     padding: 0;
   }
 }
+
