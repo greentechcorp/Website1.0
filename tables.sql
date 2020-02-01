@@ -60,3 +60,10 @@ INSERT INTO `team` (`pathToPic`,`name`,`position`,`descr`) VALUES ('/static/img/
 
 UPDATE `team` SET `position` = 'Lead AI' WHERE name = 'Marcin';
 UPDATE `team` SET `position` = 'Lead Embedded Systems' WHERE name = 'Sam';
+
+CREATE TABLE ourValues (
+    id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    title varchar(255) NOT NULL,
+    subtitle varchar(255) NOT NULL,
+    descr text NOT NULL
+);
