@@ -30,8 +30,17 @@ CREATE TABLE blog_posts (
     edited tinyint(1) DEFAULT '0' NOT NULL
 );
 
+ALTER TABLE blog_posts ADD pathToPic varchar(255); 
+
+UPDATE `blog_posts` SET `pathToPic` = '/static/img/blog/1.jpg' WHERE postID = '37';
+UPDATE `blog_posts` SET `pathToPic` = '/static/img/blog/2.jpg' WHERE postID = '35';
+UPDATE `blog_posts` SET `pathToPic` = '/static/img/blog/3.jpg' WHERE postID = '29';
+UPDATE `blog_posts` SET `pathToPic` = '/static/img/blog/4.jpg' WHERE postID = '38';
+
+
 INSERT INTO `blog_posts` (`postOwnerID`,`postOwnerName`,`postTitle`,`postContent`) VALUES ('1','Leonard Hofstadter','Hello there!','General Kenobi');  
 INSERT INTO `blog_posts` (`postOwnerID`,`postOwnerName`,`postTitle`,`postContent`) VALUES ('2','Michael Pierce','Hey guys!','This is a fkcn test');  
+
 
 CREATE TABLE team (
     id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
