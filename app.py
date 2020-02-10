@@ -10,8 +10,8 @@ app.secret_key = 'your useless secret key'
 
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = ''
-app.config['MYSQL_DB'] = 'blogTest'
+app.config['MYSQL_PASSWORD'] = '1234567Kd.'
+app.config['MYSQL_DB'] = 'my_db'
 
 mysql = MySQL(app)
 
