@@ -1,8 +1,8 @@
-var numQuestions = $('#FAQs').find('.faq-list li').length;
+var numQuestions = $('#faqs').find('.faq-list li').length;
 let i;
 let j;
 for(i = 0; i < numQuestions; i++) {
-	$('#FAQs').find('.question-' + i.toString()).click((event) => {
+	$('#faqs').find('.question-' + i.toString()).click((event) => {
 		$(event.target).parent().find('.answer').slideDown();
 		var questionClasses = $(event.target).attr('class');
 		var questionNo = questionClasses[questionClasses.length-1];

@@ -145,6 +145,12 @@ li a:hover:not(.active) {
   background-color:transparent;
 }
 
+/* ANALYTICS */
+
+.analytics-image {
+  width: 60%;
+}
+
 /* TEAM */
 .team{
   padding: 20px 80px;
@@ -192,7 +198,7 @@ li a:hover:not(.active) {
 /* FAQs */
 
 .questions {
-  justify-content: left;
+  text-align: left;
 }
 
 .questions:hover {
@@ -442,6 +448,6 @@ input[type=submit]:hover {
 }
 
 .contact-div {
-  padding: 0px 10px 0px 10px;
+  padding: 0px 30px 0px 30px;
   color: #666;
 }

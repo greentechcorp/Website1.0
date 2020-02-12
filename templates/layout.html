@@ -22,9 +22,11 @@
 			<li><a href="{{ url_for('home') }}">Cycloop</a></li>
 			<li><a href="{{ url_for('product') }}">Product</a></li>
 			<li><a href="{{ url_for('team') }}">Team</a></li>
-			<li><a href="{{ url_for('contact') }}">Contact</a></li>
 			<li><a href="#">News</a></li>
 			<li><a href="{{ url_for('blog') }}">Blog</a></li>
+			<li><a href="{{ url_for('analytics') }}">Analytics</a></li>
+			<li><a href="{{ url_for('faqs') }}">FAQs</a></li>
+			<li><a href="{{ url_for('contact') }}">Contact</a></li>
 			{% if (session['loggedin'])  %}
 				<li style="float:right" ><a href="{{ url_for('logout') }}">Logout</a></li>
 			{% endif %}

@@ -72,6 +72,14 @@ def team():
 def product():
     return render_template('home.html', section='product', teams=teams())
 
+@app.route('/faqs')
+def faqs():
+    return render_template('home.html', section='faqs', teams=teams())
+
+@app.route('/analytics')
+def analytics():
+    return render_template('home.html', section='analytics', teams=teams())
+
 @app.route('/contact')
 def contact():
     return render_template('home.html', section='contact', teams=teams())
