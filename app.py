@@ -1,8 +1,11 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+import os
+import urllib.request
+from flask import Flask, flash, render_template, request, redirect, url_for, session
 from flask_mysqldb import MySQL
 import MySQLdb.cursors
 import re
 import hashlib
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 
@@ -13,8 +16,16 @@ app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = "Lowercase59%sorry%stop"
 app.config['MYSQL_DB'] = 'blogTest'
 
+UPLOAD_FOLDER = '/home/jbosch/scrapyard/3rd_try/static/img/blog'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 102
+
 mysql = MySQL(app)
 
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
+
+def allowed_file(filename):
+	return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -55,30 +66,44 @@ def teams():
     people = cursor.fetchall()
     teams = [[people[0],people[1],people[2]],[people[3],people[4],people[5]]]
     return teams
-   
+def values():
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM ourValues')
+    return cursor.fetchall()
+
 @app.route('/')
 def index():
-    return render_template('home.html', teams=teams())
+    return render_template('home.html', teams=teams(), values=values())
 
 @app.route('/home')
 def home():
-    return render_template('home.html', teams=teams())
+    return render_template('home.html', teams=teams(), values=values())
 
 @app.route('/team')
 def team():
-    return render_template('home.html', section='team', teams=teams())
+    return render_template('home.html', section='team', teams=teams(), values=values())
 
 @app.route('/product')
 def product():
-    return render_template('home.html', section='product', teams=teams())
+    return render_template('home.html', section='product', teams=teams(), values=values())
 
 @app.route('/contact')
 def contact():
-    return render_template('home.html', section='contact', teams=teams())
+    return render_template('home.html', section='contact', teams=teams(), values=values())
 
 @app.route('/map')
 def map():
     return render_template('map.html')
+
+@app.route('/news')
+def news():
+    return render_template('news.html')
+
+def filenameToPath(filename):
+    return "/static/img/blog/" + filename
+def pathToFilename(path):
+    return path[17:]
+
 
 @app.route('/blog',  methods=['GET', 'POST'])
 def blog():
@@ -90,9 +115,20 @@ def blog():
     
     posts = cursor.fetchall()
     if request.method == 'POST' and 'title' in request.form and 'content' in request.form:
+        file = request.files['file']
         title = request.form['title']
         content = request.form['content']
-        cursor.execute('INSERT INTO blog_posts (`postOwnerID`,`postOwnerName`,`postTitle`,`postContent`) VALUES  (%s, %s, %s, %s)', (session['id'], session['name'], title, content))
+        if ('file' not in request.files) or (file.filename == ''):
+            cursor.execute('INSERT INTO blog_posts (`postOwnerID`,`postOwnerName`,`postTitle`,`postContent`) VALUES  (%s, %s, %s, %s)', (session['id'], session['name'], title, content))
+            flash('No image uploaded')
+        elif file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            cursor.execute('INSERT INTO blog_posts (`postOwnerID`,`postOwnerName`,`postTitle`,`postContent`,`pathToPic`) VALUES  (%s, %s, %s, %s, %s)', (session['id'], session['name'], title, content,filenameToPath(filename)))
+            flash('File successfully uploaded')
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        else:
+            flash('Allowed file types are png, jpg, jpeg, gif')
+            return redirect(request.url)
         mysql.connection.commit()
         return redirect(url_for('blog'))
     return render_template('blog.html', posts=reversed(posts))
@@ -137,6 +173,11 @@ def show(id):
 @app.route('/delete/<id>')
 def delete(id):
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM blog_posts WHERE postID = %s' % (id))
+    pathToPic = cursor.fetchone()['pathToPic']
+    if (pathToPic):
+        filename = UPLOAD_FOLDER + "/" + pathToFilename(pathToPic)
+        os.system('rm %s' % filename)
     cursor.execute('DELETE FROM blog_posts WHERE postID = %s' % (id) ) 
     mysql.connection.commit()
     return redirect(url_for('blog'))
