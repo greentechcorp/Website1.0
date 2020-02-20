@@ -13,6 +13,7 @@ app.secret_key = 'your useless secret key'
 
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
+
 app.config['MYSQL_PASSWORD'] = "Lowercase59%sorry%stop"
 app.config['MYSQL_DB'] = 'blogTest'
 
@@ -86,6 +87,14 @@ def team():
 @app.route('/product')
 def product():
     return render_template('home.html', section='product', teams=teams(), values=values())
+
+@app.route('/faqs')
+def faqs():
+    return render_template('home.html', section='faqs', teams=teams())
+
+@app.route('/analytics')
+def analytics():
+    return render_template('home.html', section='analytics', teams=teams())
 
 @app.route('/contact')
 def contact():

@@ -3,8 +3,10 @@
   -NAVBAR
   -MAIN CONTENT
   -TEAM
+  -FAQs
   -LOGIN
   -BLOG
+  -CONTACT
 */
 
 body, html{
@@ -60,6 +62,7 @@ li a:hover:not(.active) {
   background-repeat:no-repeat;
   background-attachment:fixed;
 }
+
 .login{
   position:relative;
   background-position:center;
@@ -77,6 +80,7 @@ li a:hover:not(.active) {
 .products{
   background-image:url('/static/img/imageblue.jpg');
   min-height:400px;
+  opacity: 0.5;
 }
 
 .product .member{
@@ -90,7 +94,6 @@ li a:hover:not(.active) {
   font-size: 14px;
   line-height: 1.4em;
 }
-
 
 .section3{
   background-image:url('/static/img/image3.jpg');
@@ -141,6 +144,12 @@ li a:hover:not(.active) {
 
 .ptext .border.trans{
   background-color:transparent;
+}
+
+/* ANALYTICS */
+
+.analytics-image {
+  width: 60%;
 }
 
 /* TEAM */
@@ -210,6 +219,20 @@ li a:hover:not(.active) {
     min-height: 30%;
     background-attachment:scroll;
   }
+}
+
+/* FAQs */
+
+.questions {
+  text-align: left;
+}
+
+.questions:hover {
+  cursor: pointer;
+}
+
+.answer {
+  display: none;
 }
 
 /* LOGIN */
@@ -358,7 +381,7 @@ span.psw {
 .footer {
   padding: 20px;
   text-align: center;
-  background: #ddd;
+  background: #666;
 }
 
 .fixfooter {
@@ -438,7 +461,7 @@ input[type=submit]:hover {
     width: 100%;
     padding: 0;
   }
-}
+
 
 .picContainer {
   position: relative;
@@ -647,4 +670,15 @@ article p{
 .news section {
 	width: 1000px;
 	margin: auto;
+/* CONTACT */
+
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.contact-div {
+  padding: 0px 30px 0px 30px;
+  color: #666;
 }
