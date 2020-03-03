@@ -6,10 +6,7 @@
 
 <div id="cycloop" class="home">
     <div class="ptext">
-      <span class="border">
-        CYCLOOP
-      </span>
-     </div>
+    </div>
 </div>
 
 <section id="product" class="product section section-light">
@@ -20,7 +17,7 @@
       </div>
       <div class="member">
            <h2>Next milestone</h2>
-           <iframe width="560" height="315" src="https://www.youtube.com/embed/d6jo3IRo8ls" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>      </div>
+           <iframe width="560" height="315" src="https://www.youtube.com/embed/d6jo3IRo8ls" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       </div>
   </div>
 </section>
@@ -35,16 +32,18 @@
 <section id="team" class="section section-white team">
   <h2>This is us!</h2>
  
-  {% for team in teams%}
+  {% for subTeam in team%}
   <div class="members">
 
-    {% for person in team %}
+    {% for person in subTeam %}
+    {% if person %}
     <div class="memberA">
       <img src= {{person['pathToPic']}} class="team-img">
       <h3 style="font-size: 22px;">{{person['name']}}</h3>
       <a>-{{person['position']}}-</a>
       <p>{{person['descr']}}</p>
     </div>
+    {%endif%}
     {% endfor %}
     
   </div>
@@ -60,6 +59,40 @@
     </div>
 </div>
 
+
+
+<section id="partners" class="section-partners section-white">
+  <div class="values">
+  <h1>Our vision:</h1>
+  <h3>Creating a more sustainable and livable planet by making recycling as easy as
+    throwing something in the bin.</h3>
+  </div>
+  <div class="values">
+    <h1>Our values:</h1>
+    <div class="tab">
+      {% for value in values%}
+        <button class="tablinks {% if (value['id']==3 )%} active {%endif%}"  onmouseover=" openValue(event, {{value['id']}})">{{value['title']}}</button>
+      {% endfor %}        
+    </div>
+      
+      
+    {% for value in values%}
+      <div id= {{value['id']}} class="tabcontent" {% if (value['id']==3 )%} style="display: block;" {%endif%}>
+        <h3>{{value['subtitle']}}</h3>
+        <p>{{value['descr']}}</p>
+      </div>
+    {% endfor %}        
+  </div>
+  <div class="members">
+  </div>
+</section>
+
+<div class="products">
+  <div class="ptext">
+    <span class="border trans">
+    </span>
+  </div>
+</div>
 
 <section id="analytics" class="section section-white ">
   <h2>Analytics</h2>
@@ -131,6 +164,7 @@
 </div>
 
 
+
 <div id="contact" class="fixfooter flex-container">
   <div class="contact-div">
     <h3>
@@ -144,4 +178,5 @@
   </div>
 </div>
   
+<script src="/static/js/values.js"></script>
 {% endblock content %}

@@ -6,13 +6,13 @@
 
 {% if (session['loggedin'])  %}
 <div class="container">
-    <form method="post">
+    <form method="post" enctype="multipart/form-data"> <!-- enctype needed for uploading file through HTML -->
         <div class="row">
             <div class="col-25">
                 <label for="title">Title</label>
             </div>
             <div class="col-75">
-                <input type="text" id="title" name="title" placeholder="Find a catchy title..." value="{{request.form.title }}">
+                <input type="text" id="title" name="title" placeholder="Find a catchy title..." value="{{request.form.title }}"> ///pn
             </div>
         </div>
         <div class="row">
@@ -24,6 +24,18 @@
             </div>
         </div>
         <div class="row">
+            <input type="file" name="file" autocomplete="off">
+            <p>
+                {% with messages = get_flashed_messages() %}
+                  {% if messages %}
+                    <ul class=flashes>
+                    {% for message in messages %}
+                      <li>{{ message }}</li>
+                    {% endfor %}
+                    </ul>
+                  {% endif %}
+                {% endwith %}
+            </p>
             <input type="submit" name="submit" value="Submit">
         </div>
     </form>
@@ -42,33 +54,51 @@
 
 <div class="row">
     <div class="leftcolumn">
-  
 
     {% for post in posts %}
         <div class="card">
         
-            {% if (session['loggedin'])  %}
-            <div class="dropdown">
-                <button class="dropbtn"></button>
-                <div id="dropdown" class="dropdown-content">
-                    <a href="{{ url_for('edit', id = post['postID']) }}">Edit</a>
-                    {% if (post['public'])  %}
-                    <a href="{{ url_for('hide', id = post['postID']) }}">Hide</a>
+            
+            <div class="flip-box">
+                <div class="flip-box-inner">
+                  <div class="flip-box-front">
+                    <div class="picContainer">
+                        {% if (post['pathToPic'])%}
+                        <img src={{post['pathToPic']}} style="width:100%; height: 100%; filter: brightness(50%);">
+                        {% else %}
+                        <img src="/static/img/blog/grey.jpg" style="width:540px; height:360px; filter: brightness(50%);">            
+                        {%endif%}
+
+                    
+                        <div class="centered">
+                        <h2>{{ post['postTitle'] }}</h2>
+                        <h5>
+                           by {{ post['postOwnerName']}}</h5>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="flip-box-back">
+                      <h5> Posted on {{post['postDate']}}{% if (post['edited']) %} (edited) {% endif %}
+                        {% if not (post['public']) %} (hidden) {% endif %}</h5>
+                    <p>{{ post['postContent' ]}}</p>
+                    {% if (session['loggedin'])  %}
+                    <div class="dropdown">
+                        <button class="dropbtn"></button>
+                        <div id="dropdown" class="dropdown-content">
+                            <a href="{{ url_for('edit', id = post['postID']) }}">Edit</a>
+                            {% if (post['public'])  %}
+                            <a href="{{ url_for('hide', id = post['postID']) }}">Hide</a>
+                            {% endif %}
+                            {% if not (post['public'])  %}
+                            <a href="{{ url_for('show', id = post['postID']) }}">Show</a>
+                            {% endif %}
+                            <a href="{{ url_for('delete', id = post['postID']) }}">Delete</a>
+                        </div>
+                    </div>
                     {% endif %}
-                    {% if not (post['public'])  %}
-                    <a href="{{ url_for('show', id = post['postID']) }}">Show</a>
-                    {% endif %}
-                    <a href="{{ url_for('delete', id = post['postID']) }}">Delete</a>
+                    </div>
                 </div>
-            </div>
-            {% endif %}
-            <h2>{{ post['postTitle'] }}</h2>
-            
-            
-            <h5>{% if (post['edited']) %} (edited) {% endif %}
-                 {% if not (post['public']) %} (hidden) {% endif %}
-                Posted on {{post['postDate']}} by {{ post['postOwnerName']}}</h5>
-            <p>{{ post['postContent' ]}}</p>
+            </div> 
         </div>
         
         
@@ -76,8 +106,11 @@
     </div>
     <div class="rightcolumn">
         <div class="card">
-          <h3>We are social!</h3>
-          <p>Social media links</p>
+            <h3>We are social!</h3>
+            <p>Social media links</p>
+            <a href="#" class="fa fa-linkedin"></a>
+            <a href="#" class="fa fa-facebook"></a>
+            <a href="#" class="fa fa-twitter"></a>
         </div>
     </div>
 
