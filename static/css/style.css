@@ -461,6 +461,7 @@ input[type=submit]:hover {
     width: 100%;
     padding: 0;
   }
+}
 
 
 .picContainer {
@@ -547,8 +548,11 @@ input[type=submit]:hover {
   left: 10%;
   position: relative;
   align-items: center;
-  }
+}
 
+.values h3{
+  margin:0 5%;
+}
 /* Style the buttons inside the tab */
 .tab button {
   background-color: inherit;
@@ -588,6 +592,12 @@ input[type=submit]:hover {
 @keyframes fadeEffect {
  from {opacity: 0;}
  to {opacity: 1;}
+}
+
+@media screen and (max-width: 650px) {
+  .tab button{
+    width: 100%;
+  }
 }
 
 .news img{
@@ -671,7 +681,7 @@ article p{
 	width: 1000px;
 	margin: auto;
 /* CONTACT */
-
+}
 .flex-container {
   display: flex;
   flex-wrap: wrap;

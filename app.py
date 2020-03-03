@@ -107,11 +107,11 @@ def product():
 
 @app.route('/faqs')
 def faqs():
-    return render_template('home.html', section='faqs', teams=teams())
+    return render_template('home.html', section='faqs', team=team_members(), values=values())
 
 @app.route('/analytics')
 def analytics():
-    return render_template('home.html', section='analytics', teams=teams())
+    return render_template('home.html', section='analytics', team=team_members(), values=values())
 
 @app.route('/contact')
 def contact():
