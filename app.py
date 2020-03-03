@@ -7,24 +7,31 @@ import re
 import hashlib
 from werkzeug.utils import secure_filename
 
+max_file_size = 16777216
+database_key = open("database_key.txt", "r")
+flask_key = open("flask_key.txt","r")
+
 app = Flask(__name__)
 
-app.secret_key = 'your useless secret key'
 
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = "Lowercase59%sorry%stop"
+app.config['MYSQL_PASSWORD'] = database_key.read()
 app.config['MYSQL_DB'] = 'blogTest'
 
+app.config['SECRET_KEY'] = flask_key.read()
+
 UPLOAD_FOLDER = '/home/jbosch/scrapyard/3rd_try/static/img/blog'
+blog_folder = "/static/img/blog/"
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 102
+app.config['MAX_CONTENT_LENGTH'] = max_file_size
 
 mysql = MySQL(app)
 
-ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
+ALLOWED_EXTENSIONS = ['png', 'jpg', 'jpeg', 'gif']
 
 def allowed_file(filename):
+    #Finds the extension of the file and checks if it is allowed
 	return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
@@ -60,12 +67,22 @@ def logout():
    return redirect(url_for('login'))
 
 
-def teams():
+def team_members():
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute('SELECT * FROM team')
     people = cursor.fetchall()
-    teams = [[people[0],people[1],people[2]],[people[3],people[4],people[5]]]
-    return teams
+    people_per_subteam = 3
+
+    subTeams =  (len(people)//people_per_subteam)
+    if ((len(people)%people_per_subteam) != 0):
+        subTeams += 1
+    team = [[None for i in range(people_per_subteam)] for j in range(subTeams)]
+            
+    for i in range (len(people)):
+        team [i//people_per_subteam][i%people_per_subteam] = people[i]
+
+    return team
+
 def values():
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute('SELECT * FROM ourValues')
@@ -73,23 +90,23 @@ def values():
 
 @app.route('/')
 def index():
-    return render_template('home.html', teams=teams(), values=values())
+    return render_template('home.html', team=team_members(), values=values())
 
 @app.route('/home')
 def home():
-    return render_template('home.html', teams=teams(), values=values())
+    return render_template('home.html', team=team_members(), values=values())
 
 @app.route('/team')
 def team():
-    return render_template('home.html', section='team', teams=teams(), values=values())
+    return render_template('home.html', section='team', team=team_members(), values=values())
 
 @app.route('/product')
 def product():
-    return render_template('home.html', section='product', teams=teams(), values=values())
+    return render_template('home.html', section='product', team=team_members(), values=values())
 
 @app.route('/contact')
 def contact():
-    return render_template('home.html', section='contact', teams=teams(), values=values())
+    return render_template('home.html', section='contact', team=team_members(), values=values())
 
 @app.route('/map')
 def map():
@@ -100,9 +117,10 @@ def news():
     return render_template('news.html')
 
 def filenameToPath(filename):
-    return "/static/img/blog/" + filename
+    return blog_folder + filename
+
 def pathToFilename(path):
-    return path[17:]
+    return path[(len(blog_folder)):]
 
 
 @app.route('/blog',  methods=['GET', 'POST'])
@@ -176,8 +194,8 @@ def delete(id):
     cursor.execute('SELECT * FROM blog_posts WHERE postID = %s' % (id))
     pathToPic = cursor.fetchone()['pathToPic']
     if (pathToPic):
-        filename = UPLOAD_FOLDER + "/" + pathToFilename(pathToPic)
-        os.system('rm %s' % filename)
+        filePath = UPLOAD_FOLDER + "/" + pathToFilename(pathToPic)
+        os.system('rm %s' % filePath)
     cursor.execute('DELETE FROM blog_posts WHERE postID = %s' % (id) ) 
     mysql.connection.commit()
     return redirect(url_for('blog'))

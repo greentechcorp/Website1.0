@@ -1,6 +1,5 @@
-function openValue(evt, valueName) {
-    // Declare all variables
-    var i, tabcontent, tablinks;
+//Shows/Hide the elements from the values section of the home page
+function openValue(evt, valueName) { 
   
     // Get all elements with class="tabcontent" and hide them
     tabcontent = document.getElementsByClassName("tabcontent");

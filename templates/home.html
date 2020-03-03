@@ -32,16 +32,18 @@
 <section id="team" class="section section-white team">
   <h2>This is us!</h2>
  
-  {% for team in teams%}
+  {% for subTeam in team%}
   <div class="members">
 
-    {% for person in team %}
+    {% for person in subTeam %}
+    {% if person %}
     <div class="memberA">
       <img src= {{person['pathToPic']}} class="team-img">
       <h3 style="font-size: 22px;">{{person['name']}}</h3>
       <a>-{{person['position']}}-</a>
       <p>{{person['descr']}}</p>
     </div>
+    {%endif%}
     {% endfor %}
     
   </div>
