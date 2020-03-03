@@ -13,6 +13,7 @@ flask_key = open("flask_key.txt","r")
 
 app = Flask(__name__)
 
+app.secret_key = flask_key.read()
 
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
@@ -103,6 +104,14 @@ def team():
 @app.route('/product')
 def product():
     return render_template('home.html', section='product', team=team_members(), values=values())
+
+@app.route('/faqs')
+def faqs():
+    return render_template('home.html', section='faqs', teams=teams())
+
+@app.route('/analytics')
+def analytics():
+    return render_template('home.html', section='analytics', teams=teams())
 
 @app.route('/contact')
 def contact():
