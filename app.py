@@ -7,13 +7,11 @@ import re
 import hashlib
 from werkzeug.utils import secure_filename
 
-max_file_size = 16777216
+max_file_size = 16 * 1024 * 1024
 database_key = open("database_key.txt", "r")
 flask_key = open("flask_key.txt","r")
 
 app = Flask(__name__)
-
-app.secret_key = flask_key.read()
 
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
