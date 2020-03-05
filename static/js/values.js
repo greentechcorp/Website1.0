@@ -1,5 +1,5 @@
-//Shows/Hide the elements from the values section of the home page
-function openValue(evt, valueName) { 
+//Shows/Hides the elements from the values section of the home page
+function displayValue(evt, valueName) { 
   
     // Get all elements with class="tabcontent" and hide them
     tabcontent = document.getElementsByClassName("tabcontent");

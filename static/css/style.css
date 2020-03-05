@@ -195,31 +195,6 @@ li a:hover:not(.active) {
 }
 
 
-@media(max-width:568px){
-  .section1, .section2, .section3{
-    background-attachment:scroll;
-  }
-  .nav .b {
-    display: none;
-  }
-  .product .member{
-    float: none;
-    width: auto;
-    padding: 2% 2%;
-    text-align: center;
-  }
-  .product .mobile{
-    display: block;
-  }
-  .team .memberA{
-    float: none;
-    width: auto;
-  }
-  .home{
-    min-height: 30%;
-    background-attachment:scroll;
-  }
-}
 
 /* FAQs */
 
@@ -588,6 +563,14 @@ input[type=submit]:hover {
   padding: 10px 0;
 }
 
+.section-values {
+  text-align: center;
+  padding: 50px 0px;
+}
+.section-values .mobile{
+  display: none;
+}
+
 /* Go from zero to full opacity */
 @keyframes fadeEffect {
  from {opacity: 0;}
@@ -691,4 +674,37 @@ article p{
 .contact-div {
   padding: 0px 30px 0px 30px;
   color: #666;
+}
+
+
+@media(max-width:568px){
+  .section1, .section2, .section3{
+    background-attachment:scroll;
+  }
+  .nav .b {
+    display: none;
+  }
+  .product .member{
+    float: none;
+    width: auto;
+    padding: 2% 2%;
+    text-align: center;
+  }
+  .product .mobile{
+    display: block;
+  }
+  .team .memberA{
+    float: none;
+    width: auto;
+  }
+  .home{
+    min-height: 30%;
+    background-attachment:scroll;
+  }
+  .section-values .notmobile{
+    display: none;
+  }
+  .section-values .mobile{
+    display: block;
+  }
 }
