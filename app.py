@@ -13,10 +13,11 @@ flask_key = open("flask_key.txt","r")
 
 app = Flask(__name__)
 
-app.config['MYSQL_HOST'] = 'aa6opn5gx407xx.c2gdajckbtdq.us-east-2.rds.amazonaws.com:3306'
+app.config['MYSQL_HOST'] = 'aa6opn5gx407xx.c2gdajckbtdq.us-east-2.rds.amazonaws.com'
+app.config['MYSQL_PORT'] = '3306'
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = database_key.read()
-app.config['MYSQL_DB'] = 'aa6opn5gx407xx'
+app.config['MYSQL_DB'] = 'website'
 
 app.config['SECRET_KEY'] = flask_key.read()
 
