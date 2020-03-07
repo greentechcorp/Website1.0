@@ -1,0 +1,192 @@
+{% extends 'layout.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+<div id="cycloop" class="home">
+    <div class="ptext">
+    </div>
+</div>
+
+<section id="product" class="product section section-light">
+  <div class="members">
+      <div class="member">
+          <h2>Current prototype</h2>
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/IhRQ3ke7PKc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+      <div class="member">
+           <h2>Next milestone</h2>
+           <iframe width="560" height="315" src="https://www.youtube.com/embed/d6jo3IRo8ls" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+  </div>
+</section>
+
+  <div class="products">
+    <div class="ptext">
+      <span class="border trans">
+      </span>
+    </div>
+  </div>
+
+<section id="team" class="section section-white team">
+  <h2>This is us!</h2>
+ 
+  {% for subTeam in team%}
+  <div class="members">
+
+    {% for person in subTeam %}
+    {% if person %}
+    <div class="memberA">
+      <img src= {{person['pathToPic']}} class="team-img">
+      <h3 style="font-size: 22px;">{{person['name']}}</h3>
+      <a>-{{person['position']}}-</a>
+      <p>{{person['descr']}}</p>
+    </div>
+    {%endif%}
+    {% endfor %}
+    
+  </div>
+  {% endfor %}
+
+</section>
+
+
+<div class="products">
+    <div class="ptext">
+      <span class="border trans">
+      </span>
+    </div>
+</div>
+
+
+
+<section id="values" class="section-values section-white">
+  <div class="values">
+  <h1>Our vision:</h1>
+  <h3>Creating a more sustainable and livable planet by making recycling as easy as
+    throwing something in the bin.</h3>
+  </div>
+  
+  <div class="values notmobile">
+    <h1>Our values:</h1>
+    <div class="tab">
+      {% for value in values%}
+        <button class="tablinks {% if (value['id']==3 )%} active {%endif%}"  onmouseover=" displayValue(event, {{value['id']}})">{{value['title']}}</button>
+      {% endfor %}        
+    </div>
+    {% for value in values%}
+      <div id= {{value['id']}} class="tabcontent" {% if (value['id']==3 )%} style="display: block;" {%endif%}>
+        <h3>{{value['subtitle']}}</h3>
+        <p>{{value['descr']}}</p>
+      </div>
+    {% endfor %}        
+  </div>
+
+  <div class="values mobile">
+    <h1>Our values:</h1>
+    {% for value in values%}
+    <div class="tab">
+      <button class="tablinks"  onmouseover=" displayValue(event, {{value['id'] + (values|count)}})">{{value['title']}}</button>
+    </div>
+    <div id= {{value['id'] + (values|count)}} class="tabcontent">
+      <h3>{{value['subtitle']}}</h3>
+      <p>{{value['descr']}}</p>
+    </div>
+    {% endfor %}        
+  </div>
+</section>
+
+<div class="products">
+  <div class="ptext">
+    <span class="border trans">
+    </span>
+  </div>
+</div>
+
+<section id="analytics" class="section section-white ">
+  <h2>Analytics</h2>
+  <div>
+    Here's an example of normal waste composition. This is municipal waste composition in Wales in 2015.
+    <img src="/static/img/waste_composition_wales.png" class="analytics-image">
+  </div>
+</section>
+
+<div class="products">
+    <div class="ptext">
+      <span class="border trans">
+      </span>
+    </div>
+</div>
+
+<section id="faqs" class="section section-white">
+  <h2>FAQs</h2>
+  <div class="questions">
+      <ul class="faq-list">
+        <div>
+          <li class="question question-0"><b>Q:</b>
+          What does the bin do?</li>
+          <div class="answer answer-0"><b>A:</b>
+            This bin sorts your rubbish for you so you don't have to!
+          </div>
+        </div>
+        <hr>
+        <div>
+          <li class="question question-1"><b>Q:</b>
+          How does it work?</li>
+          <div class="answer answer-1"><b>A:</b>
+            The technology the bin uses includes AI, WiFi sensors and weight sensors to scan your rubbish piece-by-piece and detect what type of material your rubbish is. From there, it's sorted into the correct bin and brought to get recycled!
+          </div>
+        </div>
+        <hr>
+        <div>
+          <li class="question question-2"><b>Q:</b>
+          How do I clean it?</li>
+          <div class="answer answer-2"><b>A:</b>
+            Clean the bin every few weeks and check that there are no stains. Use a scrubber and spray if neeeded.
+          </div>
+        </div>
+        <hr>
+      </ul>
+  </div>
+</section>
+
+<div class="products">
+  <div class="ptext">
+    <span class="border trans">
+    </span>
+  </div>
+</div>
+
+<section id="partners" class="section-partners section-white">
+  <h2>Thanks to:</h2>
+  <img src="/static/img/partners/1.png">
+  <img src="/static/img/partners/2.png">
+  <div class="members">
+  </div>
+</section>
+
+<div class="products">
+  <div class="ptext">
+    <span class="border trans">
+    </span>
+  </div>
+</div>
+
+
+
+<div id="contact" class="fixfooter flex-container">
+  <div class="contact-div">
+    <h3>
+      Contact <a href="mailto:info@cycloop.co.uk">info@cycloop.co.uk</a> 
+    </h3>
+  </div>
+  <div class="contact-div">
+    <h3>
+      Experiencing issues? <a href="https://forms.gle/3PcBmR2zme9zLGQB6">Let us know</a>
+    </h3>
+  </div>
+</div>
+  
+<script src="/static/js/values.js"></script>
+{% endblock content %}
