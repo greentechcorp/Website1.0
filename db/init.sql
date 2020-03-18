@@ -1,6 +1,6 @@
-CREATE DATABASE website;
+CREATE DATABASE websitedb;
 
-USE website;
+USE websitedb;
 
 CREATE TABLE blog_posts (
     postID int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,

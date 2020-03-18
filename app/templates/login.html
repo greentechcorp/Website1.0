@@ -1,0 +1,29 @@
+{% extends 'layout.html' %}
+{% block title %}login page{% endblock %}
+
+{% block content %}
+<div id="login" >
+  <form class="modal-content" action="" method="post">
+    <div class="container">
+
+      <label for="username"><b>Username</b></label>
+      <input type="text" placeholder="Username" name="username" value="{{request.form.username }}">
+      <label for="password"><b>Password</b></label>
+      <input type="password" placeholder="Password" name="password" value="{{request.form.password }}">  
+      <input class="btn btn-default" type="submit" value="Login">
+      <label>
+        <input type="checkbox" checked="checked" name="remember"> Remember me
+      </label>
+    </div>
+  
+    <div class="container" style="background-color:#f1f1f1">
+      <a class="cancelbtn" href="#">Cancel</a>
+      <span class="psw">Forgot <a href="#">password?</a></span>
+    </div>
+  </form>
+  {% if msg %}
+    <p class="msg">{{ msg }}
+  {% endif %}
+  </div>
+{% endblock content %}
+
