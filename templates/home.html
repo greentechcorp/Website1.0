@@ -4,25 +4,35 @@
 
 {% block content %}
 
-<div id="cycloop" class="home">
-    <div class="ptext">
-    </div>
+<div id="cycloop" class="home-space"></div>
+<div class="home"></div>
+<div class="home-space"></div>
+<a href="{{ url_for('product') }}">
+  <div id="arrow" class="arrow ">
+  <span></span>
+  <span></span>
+  <span></span>
 </div>
+</a>
 
 <section id="product" class="product section section-light">
   <div class="members">
       <div class="member">
           <h2>Current prototype</h2>
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/IhRQ3ke7PKc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          <div class="videoResponsive">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/IhRQ3ke7PKc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
       </div>
       <div class="member">
            <h2>Next milestone</h2>
+           <div class="videoResponsive">
            <iframe width="560" height="315" src="https://www.youtube.com/embed/d6jo3IRo8ls" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
       </div>
   </div>
 </section>
 
-  <div class="products">
+  <div class="distance_keeper">
     <div class="ptext">
       <span class="border trans">
       </span>
@@ -36,14 +46,16 @@
   <div class="members">
 
     {% for person in subTeam %}
+    
     {% if person %}
-    <div class="memberA">
+    <div class="memberA {%if person['id']==4%} leftMember {%endif%} {%if person['id']==5%} rightMember {%endif%}">
       <img src= {{person['pathToPic']}} class="team-img">
-      <h3 style="font-size: 22px;">{{person['name']}}</h3>
+    <h3 style="font-size: 22px; ">{{person['name']}}</h3>
       <a>-{{person['position']}}-</a>
       <p>{{person['descr']}}</p>
     </div>
     {%endif%}
+
     {% endfor %}
     
   </div>
@@ -52,7 +64,7 @@
 </section>
 
 
-<div class="products">
+<div class="distance_keeper">
     <div class="ptext">
       <span class="border trans">
       </span>
@@ -97,65 +109,12 @@
   </div>
 </section>
 
-<div class="products">
-  <div class="ptext">
-    <span class="border trans">
-    </span>
-  </div>
-</div>
 
-<section id="analytics" class="section section-white ">
-  <h2>Analytics</h2>
-  <div>
-    Here's an example of normal waste composition. This is municipal waste composition in Wales in 2015.
-    <img src="/static/img/waste_composition_wales.png" class="analytics-image">
-  </div>
-</section>
-
-<div class="products">
+<div class="distance_keeper">
     <div class="ptext">
       <span class="border trans">
       </span>
     </div>
-</div>
-
-<section id="faqs" class="section section-white">
-  <h2>FAQs</h2>
-  <div class="questions">
-      <ul class="faq-list">
-        <div>
-          <li class="question question-0"><b>Q:</b>
-          What does the bin do?</li>
-          <div class="answer answer-0"><b>A:</b>
-            This bin sorts your rubbish for you so you don't have to!
-          </div>
-        </div>
-        <hr>
-        <div>
-          <li class="question question-1"><b>Q:</b>
-          How does it work?</li>
-          <div class="answer answer-1"><b>A:</b>
-            The technology the bin uses includes AI, WiFi sensors and weight sensors to scan your rubbish piece-by-piece and detect what type of material your rubbish is. From there, it's sorted into the correct bin and brought to get recycled!
-          </div>
-        </div>
-        <hr>
-        <div>
-          <li class="question question-2"><b>Q:</b>
-          How do I clean it?</li>
-          <div class="answer answer-2"><b>A:</b>
-            Clean the bin every few weeks and check that there are no stains. Use a scrubber and spray if neeeded.
-          </div>
-        </div>
-        <hr>
-      </ul>
-  </div>
-</section>
-
-<div class="products">
-  <div class="ptext">
-    <span class="border trans">
-    </span>
-  </div>
 </div>
 
 <section id="partners" class="section-partners section-white">
@@ -166,7 +125,7 @@
   </div>
 </section>
 
-<div class="products">
+<div class="distance_keeper">
   <div class="ptext">
     <span class="border trans">
     </span>
@@ -181,11 +140,13 @@
       Contact <a href="mailto:info@cycloop.co.uk">info@cycloop.co.uk</a> 
     </h3>
   </div>
-  <div class="contact-div">
+  <!--
+    <div class="contact-div">
     <h3>
       Experiencing issues? <a href="https://forms.gle/3PcBmR2zme9zLGQB6">Let us know</a>
     </h3>
   </div>
+  -->
 </div>
   
 <script src="/static/js/values.js"></script>

@@ -3,22 +3,11 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-<style>
-  /* Always set the map height explicitly to define the size of the div
-   * element that contains the map. */
-  #map {
-    height: 50%;
-    width: 50%;
-  }
-</style>
 
 <section id="map" class="product section section-light">
-  <h2>Hi</h2>
 <div id="map"></div>
 </section>
-<div id="contact" class="fixfooter">
-    <h2>CONTACT <a href="mailto:info@cycloop.co.uk">info@cycloop.co.uk</a> </h2>
-</div>
+
 <script src="/static/js/map.js"> </script>
 <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
 </script>
@@ -26,5 +15,3 @@
 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyArLQlqxDaDLUqsu7KnMhl0Ud1FNIA9-zo&callback=initMap">
 </script>
 {% endblock content %}
-
-    

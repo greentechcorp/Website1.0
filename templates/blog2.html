@@ -1,0 +1,105 @@
+{% extends 'layout.html' %}
+
+{% block title %}Blog2{% endblock %}
+
+{% block content %}
+
+{% if (session['loggedin'] and (session['rnk']>1))  %}
+<div class="container">
+    <form method="post" enctype="multipart/form-data"> <!-- enctype needed for uploading file through HTML -->
+        <div class="row">
+            <div class="col-25">
+                <label for="title">Title</label>
+            </div>
+            <div class="col-75">
+                <input type="text" id="title" name="title" placeholder="Find a catchy title..." value="{{request.form.title }}"> 
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-25">
+                <label for="content">Content</label>
+            </div>
+            <div class="col-75">
+                <textarea id="content" name="content" placeholder="Write something.." style="height:200px" value="{{request.form.content }}"></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <input type="file" name="file" autocomplete="off">
+            <p>
+                {% with messages = get_flashed_messages() %}
+                  {% if messages %}
+                    <ul class=flashes>
+                    {% for message in messages %}
+                      <li>{{ message }}</li>
+                    {% endfor %}
+                    </ul>
+                  {% endif %}
+                {% endwith %}
+            </p>
+            <input type="submit" name="submit" value="Submit">
+        </div>
+    </form>
+    {% if msg %}
+    <p class="msg">{{ msg }}
+    {% endif %}
+</div>
+{% endif %}
+
+{% if (not (session['hiddenPosts'])) and (session['loggedin']) %}
+<button class="btn btn-default" ><a href="{{ url_for('seeHidden',b = True)}}">See hidden posts</a></button>
+{% endif %}
+{% if (session['hiddenPosts']) and (session['loggedin']) %}
+<button class="btn btn-default" ><a href="{{ url_for('seeHidden',b = False)}}">Show only public posts</a></button>
+{% endif %}
+<div class="blog-header">
+    <h2>Welcome to our blog</h2>
+</div>
+  
+<div class="blog">
+    
+    <div class="centerColumn">
+        {% for post in posts %}
+        {% if (session['loggedin'])  %}
+            <div class="dropdown">
+                <button class="dropbtn"></button>
+                <div id="dropdown" class="dropdown-content">
+                    <a href="{{ url_for('edit', id = post['postID']) }}">Edit</a>
+                    {% if (post['public'])  %}
+                        <a href="{{ url_for('hide', id = post['postID']) }}">Hide</a>
+                    {% endif %}
+                    {% if not (post['public'])  %}
+                        <a href="{{ url_for('show', id = post['postID']) }}">Show</a>
+                    {% endif %}
+                    <a href="{{ url_for('delete', id = post['postID']) }}">Delete</a>
+                </div>
+            </div>
+        {% endif %}    
+        
+            <div class="card">
+                <h2>{{ post['postTitle'] }}</h2>
+                <h5>Posted on {{post['postDate']}}{% if (post['edited']) %} (edited) {% endif %}{% if not (post['public']) %} (hidden) {% endif %}</h5>
+                {% if (post['pathToPic'])%}
+                    <img src={{post['pathToPic']}} style="max-width: 80%; width:auto;max-height:300px;height:auto;">
+                {% else %}
+                    <img src="/static/img/blog/grey.jpg" style="max-width: 80%; width:auto;max-height:300px;height:auto;">            
+                {%endif%}
+                <p>{{ post['postContent' ] | safe}}</p>
+                <h5>by {{ post['postOwnerName']}}</h5>
+
+            </div> 
+        {% endfor %}
+    </div>
+    <div class="rightColumn">
+        <div class="card">
+            <h2>About Us</h2>
+            <p>Description of the team...</p>
+        </div>
+        <div class="card">
+            <h3>Social media</h3>
+            <p>Some text..</p>
+        </div>
+    </div>
+</div>
+  
+
+{% endblock content %}

@@ -13,14 +13,18 @@ flask_key = open("flask_key.txt","r")
 
 app = Flask(__name__)
 
-app.config['MYSQL_HOST'] = 'localhost'
+app.jinja_env.trim_blocks = True
+app.jinja_env.lstrip_blocks = True
+
+app.config['MYSQL_HOST'] = 'aa1ucrm00shv1w7.cn9ytv31dv1j.us-west-2.rds.amazonaws.com'
+app.config['MYSQL_PORT'] = 3306
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = database_key.read()
-app.config['MYSQL_DB'] = 'blogTest'
+app.config['MYSQL_DB'] = 'website'
 
 app.config['SECRET_KEY'] = flask_key.read()
 
-UPLOAD_FOLDER = '/home/jbosch/scrapyard/3rd_try/static/img/blog'
+UPLOAD_FOLDER = '/home/jbosch/awstesting/2ndTry/static/img/blog'
 blog_folder = "/static/img/blog/"
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = max_file_size
@@ -50,6 +54,7 @@ def login():
             session['id'] = account['id']
             session['username'] = account['username']
             session['name'] = account['name']
+            session['rnk'] = account['rnk']
             msg= 'Logged in successfully!'
             return redirect(url_for('blog', msg=msg))
         else:
@@ -62,6 +67,7 @@ def logout():
    session.pop('id', None)
    session.pop('username', None)
    session.pop('name', None)
+   session.pop('rank', None)
    session.pop('hiddenPosts', None)
    return redirect(url_for('login'))
 
@@ -158,6 +164,33 @@ def blog():
         return redirect(url_for('blog'))
     return render_template('blog.html', posts=reversed(posts))
 
+@app.route('/blog2',  methods=['GET', 'POST'])
+def blog2():
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    if 'hiddenPosts' in session and session['hiddenPosts']:
+        cursor.execute('SELECT * FROM blog_posts')
+    else:
+        cursor.execute('SELECT * FROM blog_posts WHERE public = 1')
+    
+    posts = cursor.fetchall()
+    if request.method == 'POST' and 'title' in request.form and 'content' in request.form:
+        file = request.files['file']
+        title = request.form['title']
+        content = request.form['content']
+        if ('file' not in request.files) or (file.filename == ''):
+            cursor.execute('INSERT INTO blog_posts (`postOwnerID`,`postOwnerName`,`postTitle`,`postContent`) VALUES  (%s, %s, %s, %s)', (session['id'], session['name'], title, content))
+            flash('No image uploaded')
+        elif file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            cursor.execute('INSERT INTO blog_posts (`postOwnerID`,`postOwnerName`,`postTitle`,`postContent`,`pathToPic`) VALUES  (%s, %s, %s, %s, %s)', (session['id'], session['name'], title, content,filenameToPath(filename)))
+            flash('File successfully uploaded')
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        else:
+            flash('Allowed file types are png, jpg, jpeg, gif')
+            return redirect(request.url)
+        mysql.connection.commit()
+        return redirect(url_for('blog2'))
+    return render_template('blog2.html', posts=reversed(posts))
 
 @app.route('/seeHidden/<b>')
 def seeHidden(b):
@@ -212,4 +245,4 @@ def page_not_found(error):
    return render_template('404.html', title = '404'), 404
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host="0.0.0.0", debug=True)

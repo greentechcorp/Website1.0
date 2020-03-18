@@ -24,23 +24,26 @@ body, html{
 li a:hover:not(.active) {
   background-color: #111;
 }
-#nav { 
+.nav { 
   display: block;
   width: 100%;
-  position: fixed; z-index: 9999;
+  position: fixed; 
+  z-index: 9999;
   list-style-type: none;
   margin: 0;
   padding: 0;
   overflow: hidden;
   background-color: #3caed9; 
   transition: top 0.3s;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+
 }
 
-#nav li { 
+.nav li { 
   float: left;
 }
 
-#nav li a {
+.nav li a {
   display: block;
   color: white;
   text-align: center;
@@ -48,13 +51,13 @@ li a:hover:not(.active) {
   text-decoration: none;
 }
 
-#nav li a:hover { 
+.nav li a:hover { 
   text-decoration: none;
-  background: #1a1b19;
+  background: #008cbe;
 }
 
 /* MAIN CONTENT */
-.home, .products, .section3{
+.home,.home-space .products, .distance_keeper, .section3{
   position:relative;
   opacity:0.70;
   background-position:center;
@@ -76,8 +79,19 @@ li a:hover:not(.active) {
   min-height:100%;
   opacity: 1;
 }
+.home-space{
+  background-color:#0f6b90 ;
+  min-height:34%;
+  opacity: 1;
+  display: none;
+}
 
 .products{
+  background-image:url('/static/img/imageblue.jpg');
+  min-height:400px;
+  opacity: 0.5;
+}
+.distance_keeper{
   background-image:url('/static/img/imageblue.jpg');
   min-height:400px;
   opacity: 0.5;
@@ -95,6 +109,23 @@ li a:hover:not(.active) {
   line-height: 1.4em;
 }
 
+.videoResponsive {
+  padding-bottom:56.25%;
+  height:0;
+  position:relative;
+  padding-top:30px;
+  overflow:hidden;
+}
+.videoResponsive iframe, 
+.videoResponsive object, 
+.videoResponsive embed {
+  position:absolute;
+  left:0;
+  top:0;
+  width:100%;
+  height:100%;
+}
+
 .section3{
   background-image:url('/static/img/image3.jpg');
   min-height:400px;
@@ -105,9 +136,10 @@ li a:hover:not(.active) {
   min-height:100%;
 }
 
-.section{
+section{
   text-align:center;
   padding:50px 80px;
+  box-shadow: 0px 0px 10px 15px rgb(201, 201, 201);
 }
 
 .section-light{
@@ -193,7 +225,14 @@ li a:hover:not(.active) {
   line-height: 1.4em;
   text-align: justify;
 }
-
+.team .rightMember{
+  position: relative; 
+  left:18%;
+}
+.team .leftMember{
+  position: relative; 
+  left: 16%;
+}
 
 
 /* FAQs */
@@ -431,10 +470,65 @@ input[type=submit]:hover {
   padding: 50px 0px;
 }
 
-@media screen and (max-width: 800px) {
-  .leftcolumn, .rightcolumn {   
-    width: 100%;
+.blog-header {
+  padding: 30px;
+  font-size: 40px;
+  text-align: center;
+  background: white;
+  line-height: 1.8em;
+}
+
+.blog{
+  width: 1080px;
+  margin: auto;
+}
+/* Create two unequal columns that floats next to each other */
+/* Left column */
+
+.centerColumn {   
+  float: left;
+  width: 80%;
+}
+
+/* Right column */
+.rightColumn {
+  float: left;
+  width: 18%;
+  padding-left: 20px;
+}
+
+/* Fake image */
+.fakeimg {
+  background-color: #aaa;
+  width: 100%;
+  padding: 20px;
+}
+
+/* Add a card effect for articles */
+.card {
+   background-color: white;
+   padding: 20px;
+   margin-top: 20px;
+   width: 100%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+
+@media screen and (max-width: 1080px) {
+  .rightColumn,.centerColumn{
+    width: 80%;
     padding: 0;
+    margin: auto;
+    float: none;
+  }
+  .blog{
+    width:auto ;
   }
 }
 
@@ -674,10 +768,135 @@ article p{
 .contact-div {
   padding: 0px 30px 0px 30px;
   color: #666;
+  font-size: 12px;
 }
 
+.menuButton {
+  background-color: #3caed9;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+  
+.menuButton:hover, .menuButton:focus {
+  background-color: #008cbe;
+}
+  
+.menu-dropdown {
+  padding: 10px;
+  position: fixed;
+  z-index: 1;  
+  cursor: pointer;
+  display: inline-block;
+  transition: top 0.3s;
+}
+  
+.menu-dropdown .dropdown-content {
+  margin-top: 10px;
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  background-color: #3caed9;
+  min-width: 260px;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  transition: visibility 0s, opacity 0.5s linear;
+  border-radius: 5px;
+  display: block;
+}
+  
+.menu-dropdown .dropdown-content a {
+  color: white;
+  text-decoration: none;
+  display: block;
+  font-size: 22px;
+  transition: visibility 0s, opacity 0.7s ease;
+  padding: 20px 20px;
 
-@media(max-width:568px){
+}
+  
+.menu-dropdown a:hover {background-color: #008cbe;}
+ 
+.menu-dropdown .show {
+  visibility: visible;
+  opacity: 1;
+}
+
+  
+.bar1, .bar2, .bar3 {
+  width: 35px;
+  height: 5px;
+  background-color: white;
+  margin: 6px 0;
+  transition: 0.4s;
+}
+  
+.change .bar1 {
+  -webkit-transform: rotate(-45deg) translate(-9px, 6px);
+  transform: rotate(-45deg) translate(-9px, 6px);
+}
+  
+.change .bar2 {opacity: 0;}
+
+.change .bar3 {
+  -webkit-transform: rotate(45deg) translate(-8px, -8px);
+  transform: rotate(45deg) translate(-8px, -8px);
+}
+
+.mobile{
+  display: none;
+}
+
+.arrow{
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  transition: visibility 1s ease-out;
+  transform: translate(-50%,-50%);
+  cursor: pointer;
+}
+.arrow span{
+  display: block;
+  width: 30px;
+  height: 30px;
+  border-bottom: 5px solid white;
+  border-right: 5px solid white;
+  transform: rotate(45deg);
+  margin: -10px;
+  animation: arrowAnimation 2s infinite;
+}
+.arrow span:nth-child(2){
+  animation-delay: -0.2s;
+}
+.arrow span:nth-child(3){
+  animation-delay: -0.4s;
+}
+
+#map {
+  height: 50%;
+  width: 50%;
+  margin:auto;
+  top:10%;
+}
+@keyframes arrowAnimation {
+  0%{
+      opacity: 0;
+      transform: rotate(45deg) translate(-20px,-20px);
+  }
+  50%{
+      opacity: 1;
+  }
+  100%{
+      opacity: 0;
+      transform: rotate(45deg) translate(20px,20px);
+  }
+}
+
+@media(max-width:616px){
   .section1, .section2, .section3{
     background-attachment:scroll;
   }
@@ -690,18 +909,24 @@ article p{
     padding: 2% 2%;
     text-align: center;
   }
-  .product .mobile{
+  .mobile{
     display: block;
   }
+
   .team .memberA{
     float: none;
     width: auto;
+    left: 0;
+    right: 0;
   }
   .home{
-    min-height: 30%;
+    min-height: 32%;
     background-attachment:scroll;
   }
-  .section-values .notmobile{
+  .home-space{
+    display: block;
+  }
+  .notmobile{
     display: none;
   }
   .section-values .mobile{
