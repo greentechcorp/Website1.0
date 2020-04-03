@@ -86,15 +86,16 @@ li a:hover:not(.active) {
   display: none;
 }
 
-.products{
-  background-image:url('/static/img/backgroundDrawing.jpg');
-  min-height:400px;
+.distance_keeper {
+  background-image: url('/static/img/backgroundDrawing.jpg');
+  min-height: 400px;
   opacity: 0.5;
 }
-.distance_keeper{
-  background-image:url('/static/img/backgroundDrawing.jpg');
+
+.problemstatement{
+  background-image:url('/static/img/landfill.jpg');
+  background-repeat: no-repeat;
   min-height:400px;
-  opacity: 0.5;
 }
 
 .product .member{
@@ -163,7 +164,7 @@ section{
 }
 
 .ptext{
-  position:absolute;
+  position:relative;
   top:50%;
   width:100%;
   text-align:center;
