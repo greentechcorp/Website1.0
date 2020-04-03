@@ -98,9 +98,8 @@ li a:hover:not(.active) {
 }
 
 .product .member{
-  width: 30%;
+  width: 50%;
   float: left;
-  padding: 2% 10%;
   text-align: center;
 }
 
@@ -138,17 +137,22 @@ li a:hover:not(.active) {
 
 section{
   text-align:center;
-  padding:50px 80px;
   box-shadow: 0px 0px 10px 15px rgb(201, 201, 201);
   /*width: 100%;*/
 }
 
 .section-light{
+  padding:50px 80px;
   background-color:#f4f4f4;
   color:#666;
 }
-
+.section-product{
+  /*padding:50px 80px;*/
+  background-color:#f4f4f4;
+  color:#666;
+}
 .section-dark{
+  padding:50px 80px;
   background-color:#282e34;
   color:#ddd;
 }
@@ -684,8 +688,6 @@ input[type=submit]:hover {
 }
 
 #secwrapper{
-	/*background: url('images/bg.gif') fixed;
-	background-color: #f47771;*/ 
 	padding-top: 100px; 
 }
 article{
@@ -742,7 +744,6 @@ article p{
 }
 #sponsors a:hover{
 	border: 1px solid #a7a7a7;
-	/*text-decoration: underline;*/
 	color: #3f3f3f;
 	background-color: #cacaca;
 }
@@ -907,7 +908,6 @@ article p{
   .product .member{
     float: none;
     width: auto;
-    padding: 2% 2%;
     text-align: center;
   }
   .mobile{
