@@ -1,13 +1,22 @@
 var footer = document.getElementById("contact");
 var arrow = document.getElementById("arrow");
+var home = document.getElementById("cycloop")
 var prevScrollpos = window.pageYOffset;
 window.onscroll = function() {
 var currentScrollPos = window.pageYOffset;
+
 if(currentScrollPos === 0.0){
-    document.getElementById("nav").style.display = "none";
-}else{
+    if (!home){
+        document.getElementById("nav").style.display = "block";
+    }
+    else{
+        document.getElementById("nav").style.display = "none";
+    }
+}
+else{
     document.getElementById("nav").style.display = "block";
 }
+
 if (prevScrollpos > currentScrollPos) {
     document.getElementById("nav").style.top = "0";
     document.getElementById("navMobile").style.top = "0";
