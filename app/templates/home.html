@@ -51,25 +51,20 @@
 
 <section id="team" class="section section-white team">
   <h2>This is us!</h2>
- 
-  {% for subTeam in team%}
-  <div class="members">
+   <div class="members">
 
-    {% for person in subTeam %}
+    {% for person in team %}
     
     {% if person %}
-    <div class="memberA {%if person['id']==4%} leftMember {%endif%} {%if person['id']==5%} rightMember {%endif%}">
+    <div class="memberA">
       <img src= {{person['pathToPic']}} class="team-img">
     <h3 style="font-size: 22px; ">{{person['name']}}</h3>
       <a>-{{person['position']}}-</a>
       <p>{{person['descr']}}</p>
     </div>
     {%endif%}
-
     {% endfor %}
-    
   </div>
-  {% endfor %}
 
 </section>
 

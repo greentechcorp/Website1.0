@@ -23,7 +23,7 @@ app.config['MYSQL_DB'] = 'websitedb'
 
 app.config['SECRET_KEY'] = flask_key.read()
 
-UPLOAD_FOLDER = '/home/jbosch/awstesting/Website1.0/app/static/img/blog'
+UPLOAD_FOLDER = '/app/static/img/blog'
 blog_folder = "/static/img/blog/"
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = max_file_size
@@ -74,18 +74,7 @@ def logout():
 def team_members():
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute('SELECT * FROM team')
-    people = cursor.fetchall()
-    people_per_subteam = 3
-
-    subTeams =  (len(people)//people_per_subteam)
-    if ((len(people)%people_per_subteam) != 0):
-        subTeams += 1
-    team = [[None for i in range(people_per_subteam)] for j in range(subTeams)]
-            
-    for i in range (len(people)):
-        team [i//people_per_subteam][i%people_per_subteam] = people[i]
-
-    return team
+    return cursor.fetchall()
 
 def values():
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
@@ -163,33 +152,6 @@ def blog():
         return redirect(url_for('blog'))
     return render_template('blog.html', posts=reversed(posts))
 
-@app.route('/blog2',  methods=['GET', 'POST'])
-def blog2():
-    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    if 'hiddenPosts' in session and session['hiddenPosts']:
-        cursor.execute('SELECT * FROM blog_posts')
-    else:
-        cursor.execute('SELECT * FROM blog_posts WHERE public = 1')
-    
-    posts = cursor.fetchall()
-    if request.method == 'POST' and 'title' in request.form and 'content' in request.form:
-        file = request.files['file']
-        title = request.form['title']
-        content = request.form['content']
-        if ('file' not in request.files) or (file.filename == ''):
-            cursor.execute('INSERT INTO blog_posts (`postOwnerID`,`postOwnerName`,`postTitle`,`postContent`) VALUES  (%s, %s, %s, %s)', (session['id'], session['name'], title, content))
-            flash('No image uploaded')
-        elif file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            cursor.execute('INSERT INTO blog_posts (`postOwnerID`,`postOwnerName`,`postTitle`,`postContent`,`pathToPic`) VALUES  (%s, %s, %s, %s, %s)', (session['id'], session['name'], title, content,filenameToPath(filename)))
-            flash('File successfully uploaded')
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        else:
-            flash('Allowed file types are png, jpg, jpeg, gif')
-            return redirect(request.url)
-        mysql.connection.commit()
-        return redirect(url_for('blog2'))
-    return render_template('blog2.html', posts=reversed(posts))
 
 @app.route('/seeHidden/<b>')
 def seeHidden(b):
